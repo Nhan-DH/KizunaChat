@@ -1,7 +1,12 @@
+import type { User } from "./user";
+
 export interface AuthState {
     accessToken: string | null;
-    user: any; // You can replace 'any' with a more specific type based on your user data structure
+    user: User | null;
     loading: boolean;
+
+    setAccessToken: (accessToken: string) => void;
+    clearState: () => void;
     signUp: (
         username: string,
         password: string,
@@ -12,4 +17,5 @@ export interface AuthState {
     signIn: (username: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
     fetchMe: () => Promise<void>;
+    refresh: () => Promise<void>;
 }

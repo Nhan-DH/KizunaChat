@@ -38,7 +38,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
             className={cn("flex flex-col gap-6", className)}
             {...props}
         >
-            <Card className="overflow-hidden p-0 border-border">
+            <Card className="overflow-hidden p-0">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <form
                         className="p-6 md:p-8"
@@ -68,7 +68,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                             <div className="flex flex-col gap-3">
                                 <Label
                                     htmlFor="username"
-                                    className="block text-sm"
+                                    className="block text-sm text-left"
                                 >
                                     Tên đăng nhập
                                 </Label>
@@ -76,6 +76,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                                     type="text"
                                     id="username"
                                     placeholder="moji"
+                                    className="!bg-white"
                                     {...register("username")}
                                 />
                                 {errors.username && (
@@ -89,13 +90,14 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                             <div className="flex flex-col gap-3">
                                 <Label
                                     htmlFor="password"
-                                    className="block text-sm"
+                                    className="block text-sm text-left"
                                 >
                                     Mật khẩu
                                 </Label>
                                 <Input
                                     type="password"
                                     id="password"
+                                    className="!bg-white"
                                     {...register("password")}
                                 />
                                 {errors.password && (
