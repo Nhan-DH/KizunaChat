@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const friendSchema = new mongoose.Schema({
+const friendRequestSchema = new mongoose.Schema({
     from: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -19,12 +19,12 @@ const friendSchema = new mongoose.Schema({
 },
     { timestamps: true }
 );
-friendSchema.index({ from: 1, to: 1 }, { unique: true });
+friendRequestSchema.index({ from: 1, to: 1 }, { unique: true });
 
-friendSchema.index({ from: 1 });
+friendRequestSchema.index({ from: 1 });
 
-friendSchema.index({ to: 1 });
+friendRequestSchema.index({ to: 1 });
 
-const FriendRequest = mongoose.model("FriendRequest", friendSchema);
+const FriendRequest = mongoose.model("FriendRequest", friendRequestSchema);
 export default FriendRequest;
 

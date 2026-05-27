@@ -16,15 +16,6 @@ const friendSchema = new mongoose.Schema({
         timestamps: true,
     }
 );
-friendSchema.pre('save', async function (next) {
-    const a = this.userA.toString();
-    const b = this.userB.toString();
-    if (a > b) {
-        this.userA = new mongoose.Types.ObjectId(b);
-        this.userB = new mongoose.Types.ObjectId(a);
-    }
-    next();
-});
 friendSchema.index({ userA: 1, userB: 1 }, { unique: true });
 
 const Friend = mongoose.model('Friend', friendSchema);
