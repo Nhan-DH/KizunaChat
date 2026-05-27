@@ -49,6 +49,24 @@ export const sendDirectMessage = async (req, res) => {
 export const sendGroupMessage = async (req, res) => {
     try {
         const { content, conversationId } = req.body;
+        const senderId = req.user._id;
+        const conversation = req.conversation;
+
+        if (!content) {
+            return res.status(400).json({ message: "Nội dung tin nhắn không được để trống" });
+        }
+        const message = await Message.create({
+            conversationId: conversation._id,
+            sender: senderId,
+            content,
+            type: 'text'
+        });
+        updateConversationAfterCreateMessage(conversation, message, senderId);
+
+        await conversation.save();
+
+        res.status(201).json({ message: "Tin nhắn đã được gửi thành công", data: message });
+
     }
     catch (error) {
         console.error("co loi khi gui tin nhan nhom", error);
