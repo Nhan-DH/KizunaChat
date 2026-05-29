@@ -13,6 +13,7 @@ const GroupChatList = () => {
         <GroupChatCard convo={convo} />
       ))}
     </div>
+
   );
 };
 
