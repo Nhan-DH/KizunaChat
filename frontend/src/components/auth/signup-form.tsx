@@ -58,12 +58,12 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   className="mx-auto block w-fit text-center"
                 >
                   <img
-                    src="/icon_kazuna.svg"
+                    src="/logo.svg"
                     alt="logo"
                   />
                 </a>
 
-                <h1 className="text-2xl font-bold">Tạo tài khoản Kazuna</h1>
+                <h1 className="text-2xl font-bold">Tạo tài khoản Moji</h1>
                 <p className="text-muted-foreground text-balance">
                   Chào mừng bạn! Hãy đăng ký để bắt đầu!
                 </p>
@@ -121,7 +121,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 <Input
                   type="text"
                   id="username"
-                  placeholder="kazuna"
+                  placeholder="moji"
                   {...register("username")}
                 />
                 {errors.username && (
