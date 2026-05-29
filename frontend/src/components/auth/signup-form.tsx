@@ -44,7 +44,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
       className={cn("flex flex-col gap-6", className)}
       {...props}
     >
-      <Card className="overflow-hidden p-0">
+      <Card className="overflow-hidden p-0 border-border">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form
             className="p-6 md:p-8"
@@ -60,11 +60,10 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                   <img
                     src="/icon_kazuna.svg"
                     alt="logo"
-                    className="w-16 h-16"
                   />
                 </a>
 
-                <h3 className="text-2xl font-bold">Tạo tài khoản Kazuna</h3>
+                <h1 className="text-2xl font-bold">Tạo tài khoản Kazuna</h1>
                 <p className="text-muted-foreground text-balance">
                   Chào mừng bạn! Hãy đăng ký để bắt đầu!
                 </p>
@@ -75,7 +74,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 <div className="space-y-2">
                   <Label
                     htmlFor="lastname"
-                    className="block text-sm text-left"
+                    className="block text-sm"
                   >
                     Họ
                   </Label>
@@ -94,7 +93,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 <div className="space-y-2">
                   <Label
                     htmlFor="fistname"
-                    className="block text-sm text-left"
+                    className="block text-sm"
                   >
                     Tên
                   </Label>
@@ -115,7 +114,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               <div className="flex flex-col gap-3">
                 <Label
                   htmlFor="username"
-                  className="block text-sm text-left"
+                  className="block text-sm"
                 >
                   Tên đăng nhập
                 </Label>
@@ -136,14 +135,14 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               <div className="flex flex-col gap-3">
                 <Label
                   htmlFor="email"
-                  className="block text-sm text-left"
+                  className="block text-sm"
                 >
                   Email
                 </Label>
                 <Input
                   type="email"
                   id="email"
-                  placeholder="kazuna22@gmail.com"
+                  placeholder="m@gmail.com"
                   {...register("email")}
                 />
                 {errors.email && (
@@ -155,7 +154,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               <div className="flex flex-col gap-3">
                 <Label
                   htmlFor="password"
-                  className="block text-sm text-left"
+                  className="block text-sm"
                 >
                   Mật khẩu
                 </Label>

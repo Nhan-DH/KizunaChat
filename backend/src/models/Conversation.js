@@ -1,81 +1,101 @@
-import mongoose from 'mongoose';
-const participantSchema = new mongoose.Schema({
+import mongoose from "mongoose";
+
+const participantSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     joinedAt: {
-        type: Date,
-        default: Date.now
-    }
-}, { _id: false });
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id: false,
+  }
+);
 
-const groupSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        trim: true
+      type: String,
+      trim: true,
     },
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
-}, { _id: false });
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  },
+  {
+    _id: false,
+  }
+);
 
-const lastMessageSchema = new mongoose.Schema({
+const lastMessageSchema = new mongoose.Schema(
+  {
     _id: { type: String },
     content: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
     },
     senderId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        default: null
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     createdAt: {
-        type: Date,
-        default: null
+      type: Date,
+      default: null,
     },
+  },
+  {
+    _id: false,
+  }
+);
 
-}, { _id: false });
-const conversationSchema = new mongoose.Schema({
+const conversationSchema = new mongoose.Schema(
+  {
     type: {
-        type: String,
-        enum: ['direct', 'group'],
-        required: true
+      type: String,
+      enum: ["direct", "group"],
+      required: true,
     },
     participants: {
-        type: [participantSchema],
-        required: true
+      type: [participantSchema],
+      required: true,
     },
     group: {
-        type: [groupSchema],
-        required: false
+      type: groupSchema,
     },
     lastMessageAt: {
-        type: Date,
+      type: Date,
     },
-    seenBy: [{
+    seenBy: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+        ref: "User",
+      },
+    ],
     lastMessage: {
-        type: [lastMessageSchema],
-        default: null
+      type: lastMessageSchema,
+      default: null,
     },
     unreadCounts: {
-        type: Map,
-        of: Number,
-        default: {}
+      type: Map,
+      of: Number,
+      default: {},
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-    }
-}, {
-    timeStamps: true
+conversationSchema.index({
+  "participant.userId": 1,
+  lastMessageAt: -1,
 });
 
-conversationSchema.index({ "participants.userId": 1, lastMessageAt: -1 });
-
-const Conversation = mongoose.model('Conversation', conversationSchema);
+const Conversation = mongoose.model("Conversation", conversationSchema);
 export default Conversation;

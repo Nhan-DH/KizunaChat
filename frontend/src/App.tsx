@@ -1,11 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router'
-
-
-import SignUpPage from './pages/SignUpPage'
-import ChatAppPage from './pages/ChatAppPage'
-import SignInPage from './pages/SignInPage'
-import { Toaster } from 'sonner'
-import ProtectedRoute from './components/auth/ProtectedRoute'
+import { BrowserRouter, Route, Routes } from "react-router";
+import SignInPage from "./pages/SignInPage";
+import ChatAppPage from "./pages/ChatAppPage";
+import { Toaster } from "sonner";
+import SignUpPage from "./pages/SignUpPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -13,9 +11,7 @@ function App() {
       <Toaster richColors />
       <BrowserRouter>
         <Routes>
-
-          {/*public routes*/}
-
+          {/* public routes */}
           <Route
             path="/signin"
             element={<SignInPage />}
@@ -25,7 +21,7 @@ function App() {
             element={<SignUpPage />}
           />
 
-          {/*private routes*/}
+          {/* protectect routes */}
           <Route element={<ProtectedRoute />}>
             <Route
               path="/"
@@ -35,7 +31,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

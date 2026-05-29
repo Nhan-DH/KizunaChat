@@ -1,9 +1,9 @@
 import express from "express";
 import {
-    refreshToken,
-    signIn,
-    signOut,
-    signUp,
+  refreshToken,
+  signIn,
+  signOut,
+  signUp,
 } from "../controllers/authController.js";
 
 const router = express.Router();
