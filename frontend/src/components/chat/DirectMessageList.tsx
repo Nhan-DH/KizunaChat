@@ -2,7 +2,7 @@ import { useChatStore } from "@/stores/useChatStore";
 import DirectMessageCard from "./DirectMessageCard";
 
 const DirectMessageList = () => {
-  const { conversations, loading } = useChatStore();
+  const { conversations, convoLoading } = useChatStore();
 
   // Lọc chỉ các cuộc trò chuyện direct
   const directConversations = conversations.filter(
@@ -10,7 +10,7 @@ const DirectMessageList = () => {
   );
 
   // Nếu đang tải
-  if (loading) {
+  if (convoLoading) {
     return (
       <div className="flex-1 flex items-center justify-center p-4">
         <p className="text-muted-foreground text-sm">Đang tải...</p>
