@@ -1,7 +1,45 @@
-import React from "react";
+import { useChatStore } from "@/stores/useChatStore";
+
+
+import ChatWelcomeScreen from "./ChatWelcomScreen";
+import MessageItem from "./MessageItem";
 
 const ChatWindowBody = () => {
-    return <div>ChatWindowBody</div>;
+    const activeConversationId = useChatStore((s) => s.activeConversationId);
+    const conversations = useChatStore((s) => s.conversations);
+
+    const messages =
+        useChatStore((s) => s.messages[activeConversationId!]?.items) ?? [];
+    const selectedConvo = conversations.find((c) => c._id === activeConversationId);
+
+    if (!selectedConvo) {
+        return <ChatWelcomeScreen />;
+    }
+
+    if (!messages.length) {
+        return (
+            <div className="flex h-full items-center justify-center text-muted-foreground">
+                Chưa có tin nhắn nào trong cuộc trò chuyện này.
+            </div>
+        );
+    }
+
+    return (
+        <div className="p-4 bg-primary-foreground h-full flex flex-col overflow-hidden">
+            <div className="flex flex-col overflow-y-auto overflow-x-hidden beautiful-scrollbar">
+                {messages.map((message, index) => (
+                    <MessageItem
+                        key={message._id ?? index}
+                        message={message}
+                        index={index}
+                        messages={messages}
+                        selectedConvo={selectedConvo}
+                        lastMessageStatus="delivered"
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default ChatWindowBody;

@@ -93,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <AddFriendModal />
           </SidebarGroupAction>
 
-          <SidebarGroupContent>
+          <SidebarGroupContent className="beautiful-scrollbar">
             <DirectMessageList />
           </SidebarGroupContent>
         </SidebarGroup>
