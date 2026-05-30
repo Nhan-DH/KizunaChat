@@ -56,6 +56,10 @@ export interface ChatState {
     content: string,
     imrUrl?: string
   ) => Promise<void>;
+  // add message
+  addMessage: (message: Message) => Promise<void>;
+  // update convo
+  updateConversation: (conversation: Conversation) => void;
 }
 
 export interface SocketState {
@@ -63,4 +67,5 @@ export interface SocketState {
   onlineUsers: string[];
   connectSocket: () => void;
   disconnectSocket: () => void;
+
 }
