@@ -16,13 +16,20 @@ const io = new Server(server, {
 
 io.use(socketAuthMiddleware);
 
+const onlineUsers = new Map(); // {userId: socketId}
+
 io.on("connection", async (socket) => {
-    // console.log(`socket connected: ${socket.id}`);
     const user = socket.user;
 
     console.log(`${user.displayName} online với socket ${socket.id}`);
 
+    onlineUsers.set(user._id, socket.id);
+
+    io.emit("online-users", Array.from(onlineUsers.keys()));
+
     socket.on("disconnect", () => {
+        onlineUsers.delete(user._id);
+        io.emit("online-users", Array.from(onlineUsers.keys()));
         console.log(`socket disconnected: ${socket.id}`);
     });
 });
