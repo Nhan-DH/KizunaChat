@@ -5,14 +5,41 @@ import { Button } from "../ui/button";
 import { ImagePlus, Send } from "lucide-react";
 import { Input } from "../ui/input";
 import EmojiPicker from "./EmojiPicker";
-
-
+import { useChatStore } from "@/stores/useChatStore";
+import { toast } from "sonner";
 
 const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
     const { user } = useAuthStore();
+    const { sendDirectMessage, sendGroupMessage } = useChatStore();
     const [value, setValue] = useState("");
 
     if (!user) return;
+
+    const sendMessage = async () => {
+        if (!value.trim()) return;
+        const currValue = value;
+        setValue("");
+
+        try {
+            if (selectedConvo.type === "direct") {
+                const participants = selectedConvo.participants;
+                const otherUser = participants.filter((p) => p._id !== user._id)[0];
+                await sendDirectMessage(otherUser._id, currValue);
+            } else {
+                await sendGroupMessage(selectedConvo._id, currValue);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Lỗi xảy ra khi gửi tin nhắn. Bạn hãy thử lại!");
+        }
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            sendMessage();
+        }
+    };
 
     return (
         <div className="flex items-center gap-2 p-3 min-h-[56px] bg-background">
@@ -26,6 +53,7 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
 
             <div className="flex-1 relative">
                 <Input
+                    onKeyPress={handleKeyPress}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     placeholder="Soạn tin nhắn..."
@@ -48,6 +76,7 @@ const MessageInput = ({ selectedConvo }: { selectedConvo: Conversation }) => {
             </div>
 
             <Button
+                onClick={sendMessage}
                 className="bg-gradient-chat hover:shadow-glow transition-smooth hover:scale-105"
                 disabled={!value.trim()}
             >
