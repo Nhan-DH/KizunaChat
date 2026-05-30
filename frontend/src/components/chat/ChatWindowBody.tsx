@@ -1,24 +1,44 @@
 import { useChatStore } from "@/stores/useChatStore";
 
-
-import ChatWelcomeScreen from "./ChatWelcomScreen";
 import MessageItem from "./MessageItem";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "@/stores/useAuthStore";
+import ChatWelcomeScreen from "./ChatWelcomScreen";
 
 const ChatWindowBody = () => {
-    const activeConversationId = useChatStore((s) => s.activeConversationId);
-    const conversations = useChatStore((s) => s.conversations);
+    const {
+        activeConversationId,
+        conversations,
+        messages: allMessages,
+    } = useChatStore();
+    const { user } = useAuthStore();
+    const [lastMessageStatus, setLastMessageStatus] = useState<"delivered" | "seen">(
+        "delivered"
+    );
 
-    const messages =
-        useChatStore((s) => s.messages[activeConversationId!]?.items) ?? [];
+    const messages = allMessages[activeConversationId!]?.items ?? [];
+
     const selectedConvo = conversations.find((c) => c._id === activeConversationId);
+
+    useEffect(() => {
+        const lastMessage = selectedConvo?.lastMessage;
+        if (!lastMessage || !user?._id) {
+            setLastMessageStatus("delivered");
+            return;
+        }
+
+        const seenBy = selectedConvo?.seenBy ?? [];
+
+        setLastMessageStatus([...seenBy].length > 0 ? "seen" : "delivered");
+    }, [selectedConvo]);
 
     if (!selectedConvo) {
         return <ChatWelcomeScreen />;
     }
 
-    if (!messages.length) {
+    if (!messages?.length) {
         return (
-            <div className="flex h-full items-center justify-center text-muted-foreground">
+            <div className="flex h-full items-center justify-center text-muted-foreground ">
                 Chưa có tin nhắn nào trong cuộc trò chuyện này.
             </div>
         );
@@ -34,7 +54,7 @@ const ChatWindowBody = () => {
                         index={index}
                         messages={messages}
                         selectedConvo={selectedConvo}
-                        lastMessageStatus="delivered"
+                        lastMessageStatus={lastMessageStatus}
                     />
                 ))}
             </div>
