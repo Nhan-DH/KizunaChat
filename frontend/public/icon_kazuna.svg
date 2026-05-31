@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="kizunaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" /> 
+      <stop offset="60%" stop-color="#3B82F6" /> 
+      <stop offset="100%" stop-color="#06B6D4" /> 
+    </linearGradient>
+    <filter id="cleanShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1E3A8A" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="128" fill="#FFFFFF" filter="url(#cleanShadow)"/>
+
+  <g transform="translate(256, 256)">
+    <path d="M 0,-110 C 60,-110 110,-60 110,0 C 110,45 80,85 40,102 L 50,130 L 10,110 C 3,110 -3,110 -10,110 C -70,110 -110,60 -110,0 C -110,-60 -60,-110 0,-110 Z" fill="url(#kizunaGrad)" />
+
+    <rect x="-45" y="-55" width="18" height="110" rx="9" fill="#FFFFFF" />
+    <path d="M -25,-5 C -20,-5 -15,-8 -12,-12 L 28,-50 C 33,-55 28,-62 20,-62 C 14,-62 10,-59 7,-55 L -25,-16 Z" fill="#FFFFFF" />
+    <path d="M -20,5 C -15,5 -10,8 -6,13 L 29,54 C 33,59 28,66 20,66 C 14,66 9,63 6,58 L -25,18 Z" fill="#FFFFFF" />
+  </g>
+</svg>
