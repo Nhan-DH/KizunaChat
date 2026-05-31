@@ -8,7 +8,11 @@ export const sendFriendRequest = async (req, res) => {
 
     const from = req.user._id;
 
-    if (from === to) {
+    // Compare as strings
+    const fromStr = from.toString();
+    const toStr = to.toString();
+
+    if (fromStr === toStr) {
       return res
         .status(400)
         .json({ message: "Không thể gửi lời mời kết bạn cho chính mình" });
@@ -20,8 +24,8 @@ export const sendFriendRequest = async (req, res) => {
       return res.status(404).json({ message: "Người dùng không tồn tại" });
     }
 
-    let userA = from.toString();
-    let userB = to.toString();
+    let userA = fromStr;
+    let userB = toStr;
 
     if (userA > userB) {
       [userA, userB] = [userB, userA];

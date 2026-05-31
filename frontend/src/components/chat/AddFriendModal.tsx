@@ -62,11 +62,13 @@ const AddFriendModal = () => {
     if (!searchUser) return;
 
     try {
-      const message = await addFriend(searchUser._id, data.message.trim());
+      const message = await addFriend(searchUser._id, (data.message || "").trim());
       toast.success(message);
 
       handleCancel();
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || "Lỗi xảy ra khi gửi kết bạn";
+      toast.error(errorMessage);
       console.error("Lỗi xảy ra khi gửi request từ form", error);
     }
   });
