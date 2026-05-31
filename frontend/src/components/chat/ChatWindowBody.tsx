@@ -43,12 +43,10 @@ const ChatWindowBody = () => {
 
     // kéo xuống dưới khi load convo
     useLayoutEffect(() => {
-        if (!activeConversationId) return;
+
         if (!messagesEndRef.current) return;
 
-        requestAnimationFrame(() => {
-            messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-        });
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
     }, [activeConversationId]);
 
     const fetchMoreMessages = async () => {
@@ -112,6 +110,7 @@ const ChatWindowBody = () => {
                 onScroll={handleScrollSave}
                 className="flex flex-col-reverse overflow-y-auto overflow-x-hidden beautiful-scrollbar"
             >
+                <div ref={messagesEndRef}></div>
                 <InfiniteScroll
                     dataLength={messages.length}
                     next={fetchMoreMessages}
@@ -136,8 +135,6 @@ const ChatWindowBody = () => {
                         />
                     ))}
                 </InfiniteScroll>
-
-                <div ref={messagesEndRef}></div>
             </div>
         </div>
     );
