@@ -82,6 +82,11 @@ export const createConversation = async (req, res) => {
       });
     }
 
+    if (type === "direct") {
+      io.to(userId).emit("new-group", formatted);
+      io.to(memberIds[0]).emit("new-group", formatted);
+    }
+
     return res.status(201).json({ conversation: formatted });
   } catch (error) {
     console.error("Lỗi khi tạo conversation", error);
@@ -170,7 +175,7 @@ export const getUserConversationsForSocketIO = async (userId) => {
   try {
     const conversations = await Conversation.find(
       { "participants.userId": userId },
-      { _id: 1 }
+      { _id: 1 },
     );
 
     return conversations.map((c) => c._id.toString());
@@ -209,7 +214,7 @@ export const markAsSeen = async (req, res) => {
       },
       {
         new: true,
-      }
+      },
     );
 
     io.to(conversationId).emit("read-message", {
@@ -226,7 +231,7 @@ export const markAsSeen = async (req, res) => {
 
     return res.status(200).json({
       message: "Marked as seen",
-      seenBy: updated?.sennBy || [],
+      seenBy: updated?.seenBy || [],
       myUnreadCount: updated?.unreadCounts[userId] || 0,
     });
   } catch (error) {
