@@ -17,6 +17,8 @@ import type { Friend } from "@/types/user";
 
 import { toast } from "sonner";
 import { useChatStore } from "@/stores/useChatStore";
+import IniviteSuggestionList from "../newGroupChat/InviteSuggestionList";
+import SelectedUsersList from "../newGroupChat/SelectedUserList";
 
 const NewGroupChatModal = () => {
 
