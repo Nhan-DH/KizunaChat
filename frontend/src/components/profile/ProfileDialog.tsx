@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import { Dialog, DialogContent } from "../ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import ProfileCard from "./ProfileCard";
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -19,17 +19,17 @@ const ProfileDialog = ({ open, setOpen }: ProfileDialogProps) => {
                 <div className="bg-gradient-glass">
                     <div className="max-w-4xl mx-auto p-4">
                         {/* heading */}
-                        <div className="mb-6">
-                            <h1 className="text-2xl font-bold text-foreground">
+                        <DialogHeader className="mb-6">
+                            <DialogTitle className="text-2xl font-bold text-foreground">
                                 Profile & Settings
-                            </h1>
-                        </div>
+                            </DialogTitle>
+                        </DialogHeader>
 
                         <ProfileCard user={user} />
                     </div>
                 </div>
             </DialogContent>
-        </Dialog>
+        </Dialog >
     );
 };
 
