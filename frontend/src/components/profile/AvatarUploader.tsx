@@ -1,7 +1,8 @@
-import { useUserStore } from "@/stores/useUserStore";
+
 import { useRef } from "react";
 import { Button } from "../ui/button";
 import { Camera } from "lucide-react";
+import { useUserStore } from "@/stores/useUserStore";
 
 const AvatarUploader = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
