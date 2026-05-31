@@ -19,7 +19,7 @@ import {
 import type { User } from "@/types/user";
 import Logout from "../auth/Logout";
 import { useState } from "react";
-import FriendRequestDialog from "../friendRequest/FriendRequestDialog";
+import FriendRequestDialog from "../FriendRequest/FriendRequestDialog";
 import ProfileDialog from "../profile/ProfileDialog";
 
 export function NavUser({ user }: { user: User }) {
