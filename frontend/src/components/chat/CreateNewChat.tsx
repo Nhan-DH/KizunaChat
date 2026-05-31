@@ -1,68 +1,39 @@
 import { useFriendStore } from "@/stores/useFriendStore";
-import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { MessageCircleMore, Users } from "lucide-react";
 import { Card } from "../ui/card";
-import UserAvatar from "../chat/UserAvatar";
+import { Dialog, DialogTrigger } from "../ui/dialog";
+import { MessageCircle } from "lucide-react";
+import FriendListModal from "../createNewChat/FriendListModal";
 
-const FriendListModal = () => {
-  const { friends } = useFriendStore();
+const CreateNewChat = () => {
+  const { getFriends } = useFriendStore();
 
-  if (friends.length === 0) {
-    return (
-      <div className="text-center py-8 text-muted-foreground">
-        <Users className="size-12 mx-auto mb-3 opacity-50" />
-        Chưa có bạn bè. Thêm bạn vô để tám!
-      </div>
-    );
-  }
+  const handleGetFriends = async () => {
+    await getFriends();
+  };
 
   return (
-    <DialogContent className="glass max-w-md">
-      <DialogHeader>
-        <DialogTitle className="flex items-center gap-2 text-xl capitalize">
-          <MessageCircleMore className="size-5" />
-          bắt đầu hội thoại mới
-        </DialogTitle>
-      </DialogHeader>
-
-      {/* friends list */}
-      <div className="space-y-4">
-        <h1 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-          danh sách bạn bè
-        </h1>
-
-        <div className="space-y-2">
-          {friends.map((friend) => (
-            <Card
-              key={friend._id}
-              className="p-3 cursor-pointer transition-smooth hover:shadow-soft glass hover:bg-muted/30 group/friendCard"
-            >
-              <div className="flex items-center gap-3">
-                {/* avatar */}
-                <div className="relative">
-                  <UserAvatar
-                    type="sidebar"
-                    name={friend.displayName}
-                    avatarUrl={friend.avatarUrl}
-                  />
-                </div>
-
-                {/* info */}
-                <div className="flex-1 min-w-0 flex flex-col">
-                  <h2 className="font-semibold text-sm truncate">
-                    {friend.displayName}
-                  </h2>
-                  <span className="text-sm text-muted-foreground">
-                    @{friend.username}
-                  </span>
-                </div>
+    <div className="flex gap-2">
+      <Card
+        className="flex-1 p-3 glass hover:shadow-soft transition-smooth cursor-pointer group/card"
+        onClick={handleGetFriends}
+      >
+        <Dialog>
+          <DialogTrigger>
+            <div className="flex items-center gap-4">
+              <div className="size-8 bg-gradient-chat rounded-full flex items-center justify-center group-hover/card:scale-110 transition-bounce">
+                <MessageCircle className="size-4 text-white" />
               </div>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </DialogContent>
+              <span className="text-sm font-medium capitalize">
+                gửi tin nhắn mới
+              </span>
+            </div>
+          </DialogTrigger>
+
+          <FriendListModal />
+        </Dialog>
+      </Card>
+    </div>
   );
 };
 
-export default FriendListModal;
+export default CreateNewChat;
